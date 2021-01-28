@@ -1,0 +1,31 @@
+{
+  "name": "frontend-project-lvl3",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "[![Actions Status](https://github.com/karen9999/frontend-project-lvl3/workflows/hexlet-check/badge.svg)](https://github.com/karen9999/frontend-project-lvl3/actions)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karen9999/frontend-project-lvl3.git"
+  },
+  "author": "",/
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karen9999/frontend-project-lvl3/issues"
+  },
+  "homepage": "https://github.com/karen9999/frontend-project-lvl3#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "eslint": "^7.18.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-import": "^2.22.1"
+  }
+}
