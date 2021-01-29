@@ -1,7 +1,6 @@
 {
   "name": "frontend-project-lvl3",
   "version": "1.0.0",
-  "private": true,
   "description": "[![Actions Status](https://github.com/karen9999/frontend-project-lvl3/workflows/hexlet-check/badge.svg)](https://github.com/karen9999/frontend-project-lvl3/actions)",
   "main": "src/index.js",
   "scripts": {
