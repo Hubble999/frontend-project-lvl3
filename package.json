@@ -1,17 +1,19 @@
 {
   "name": "frontend-project-lvl3",
   "version": "1.0.0",
-  "type": "module",
+  "private": true,
   "description": "[![Actions Status](https://github.com/karen9999/frontend-project-lvl3/workflows/hexlet-check/badge.svg)](https://github.com/karen9999/frontend-project-lvl3/actions)",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start:dev": "webpack serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/karen9999/frontend-project-lvl3.git"
   },
-  "author": "",/
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/karen9999/frontend-project-lvl3/issues"
@@ -26,6 +28,15 @@
     "eslint": "^7.18.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-babel": "^5.3.1",
-    "eslint-plugin-import": "^2.22.1"
+    "eslint-plugin-import": "^2.22.1",
+    "webpack": "^5.18.0",
+    "webpack-cli": "^4.4.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "bootstrap": "^4.6.0",
+    "jquery": "^3.5.1",
+    "lodash": "^4.17.20",
+    "popper.js": "^1.16.1"
   }
 }
