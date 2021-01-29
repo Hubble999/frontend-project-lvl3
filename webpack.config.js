@@ -20,6 +20,6 @@ module.exports = {
     ],
   },
   plugins: [new HtmlWebpackPlugin({
-    template: 'template.html',
+    template: 'src/index.html',
 })]
 };
