@@ -5,7 +5,8 @@ export default {
       errors: {
         additionURL: 'URL must be a valid',
         networkRequest: 'the network is not responding',
-        rss: 'RSS is not valid',
+        rssNotValid: 'RSS is not valid',
+        rssHasAlredy: 'RSS has already'
       }
     }
   }

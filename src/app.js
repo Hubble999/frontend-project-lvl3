@@ -87,6 +87,12 @@ export default async () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const value = formData.get('name');
+    const hasLink = state.data.links.some(({ link }) => link === value);
+    if (hasLink) {
+      watchedState.submitForm.state = 'failed';
+      watchedState.submitForm.error = 'submitProcess.errors.rssHasAlredy';
+      return;
+    }
     const isValidate = await validateUrl2(value);
     if (isValidate) {
       state.submitForm.link = value;
@@ -95,7 +101,7 @@ export default async () => {
       const rss = await getRss(link);
       if (rss.length === 0) {
         watchedState.submitForm.state = 'failed';
-        watchedState.submitForm.error = 'submitProcess.errors.rss';
+        watchedState.submitForm.error = 'submitProcess.errors.rssNotValid';
         return;
       }
       const datas = parse(rss);
