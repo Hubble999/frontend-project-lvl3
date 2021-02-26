@@ -1,12 +1,16 @@
 import * as yup from 'yup';
 import onChange from 'on-change';
+import i18next from 'i18next';
 
 import parse from './toParse';
 import { renderError, renderPosts } from './view';
+import en from './locales/en';
 
 const schema = yup.object().shape({
   website: yup.string().url(),
 });
+
+
 
 const validateUrl = async (value, state) => {
   await schema.validate({
@@ -42,7 +46,17 @@ const getRss = async (link) => {
   return type.includes('rss') ? content : '';
 };
 
-export default () => {
+
+
+export default async () => {
+  await i18next.init({
+    lng: 'en',
+    debug: true,
+    resources: {
+      en,
+    }
+  });
+
   const state = {
     submitForm: {
       state: 'filling',
@@ -81,7 +95,7 @@ export default () => {
       const rss = await getRss(link);
       if (rss.length === 0) {
         watchedState.submitForm.state = 'failed';
-        watchedState.submitForm.error = 'Ресурс не содержит валидный RSS';
+        watchedState.submitForm.error = 'submitProcess.errors.rss';
         return;
       }
       const datas = parse(rss);
@@ -98,6 +112,6 @@ export default () => {
       return;
     }
     watchedState.submitForm.state = 'failed';
-    watchedState.submitForm.error = 'URL must be a valid';
+    watchedState.submitForm.error = 'submitProcess.errors.additionURL';
   })
 };

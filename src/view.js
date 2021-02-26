@@ -1,12 +1,24 @@
+import i18next from 'i18next';
+import en from './locales/en';
+
+async () => {
+  await i18next.init({
+    lng: 'en',
+    debug: true,
+    resources: {
+      en,
+    }
+  });
+}
+
 export const renderError = (error) => {
-  console.log(error);
   if (document.querySelector('.alert')) {
     document.querySelector('.alert').remove();
   }
   const form = document.querySelector('form');
   const input = document.querySelector('input');
   const div = document.createElement('div');
-  div.textContent = error;
+  div.textContent = i18next.t(error);
   div.classList.add('alert', 'alert-danger', 'w-25', 'p-3');
   div.setAttribute('role', 'alert');
   div.setAttribute('style', 'margin-left: 205px');
