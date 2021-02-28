@@ -11,56 +11,52 @@ async () => {
   });
 }
 
-export const renderError = (error) => {
-  if (document.querySelector('.alert')) {
-    document.querySelector('.alert').remove();
-  }
-  const form = document.querySelector('form');
-  const input = document.querySelector('input');
-  const div = document.createElement('div');
-  div.textContent = i18next.t(error);
-  div.classList.add('alert', 'alert-danger', 'w-25', 'p-3');
-  div.setAttribute('role', 'alert');
-  div.setAttribute('style', 'margin-left: 205px');
-  form.append(div);
-  input.classList.add('is-invalid');
+export const renderError = (value) => {
+  const feedbackEl = document.querySelector('.feedback');
+  feedbackEl.textContent = '';
+  feedbackEl.textContent = i18next.t(value);
+  
+
 };
 
 export const renderPosts = (feeds, posts) => {
-  if (document.querySelector('.alert')) {
-    document.querySelector('.alert').remove();
-  }
-  const rssDiv = document.getElementById('rss');
-  const feedsEl = document.getElementById('feeds');
-  feedsEl.innerHTML = '';
-  const postsEl = document.getElementById('posts');
-  postsEl.innerHTML = '';
-  feeds.forEach(({ id, channelTitle, channelDescription }) => {
-    const feedPosts = posts.filter((post) => post.id === id);
-    const feedEl = document.createElement('div');
-    const titleFeed = document.createElement('h4');
-    const descriptionFeed = document.createElement('p');
-    titleFeed.textContent = channelTitle;
-    descriptionFeed.textContent = channelDescription;
-    feedEl.append(titleFeed);
-    feedEl.append(descriptionFeed);
-    feedEl.classList.add('mx-auto', 'shadow', 'p-2', 'mb-3', 'bg-white', 'rounded');
-    feedEl.setAttribute('style', 'width: 500px')
-    feedsEl.append(feedEl);
-    feedPosts.forEach(({ title, link, description }) => {
-      const postEl = document.createElement('div');
-      const textEl = document.createElement('p');
-      textEl.classList.add('w-75')
-      const titleEl = document.createElement('h5');
-      textEl.textContent = description;
-      titleEl.textContent = title;
-      postEl.append(titleEl)
-      postEl.append(textEl);
-      postEl.classList.add('mx-auto', 'shadow', 'p-3', 'mb-1', 'bg-white', 'rounded', 'h-50');
-      postEl.setAttribute('style', 'width: 1000px')
-      postsEl.append(postEl);
+  const feedbackEl = document.querySelector('.feedback');
+  feedbackEl.textContent = '';
+  const feedsContainer = document.querySelector('.feeds');
+  const postsContainer = document.querySelector('.posts');
+  const ulFeed = document.createElement('ul');
+  ulFeed.classList.add('list-group', 'mb-5')
+  const ulPost = document.createElement('ul');
+  ulPost.classList.add('list-group');
+  feeds.forEach(({ id, feedTitle, feedDescription }) => {
+    const liEl = document.createElement('li');
+    liEl.classList.add('list-group-item');
+    const h3El = document.createElement('h3');
+    h3El.textContent = feedTitle;
+    const pEl = document.createElement('p');
+    pEl.textContent = feedDescription;
+    liEl.append(h3El);
+    liEl.append(pEl);
+    const items = posts.filter((post) => post.id === id);
+    items.forEach(({ title, link, description }) => {
+      const liEl2 = document.createElement('li');
+      liEl2.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-start");
+      const aEl = document.createElement('a');
+      aEl.href = link;
+      aEl.classList.add("font-weight-bold");
+      aEl.textContent = title;
+      const button = document.createElement('button');
+      button.textContent = 'show';
+      button.classList.add("btn", "btn-primary", "btn-sm");
+      button.setAttribute('type', 'button');
+      liEl2.append(aEl);
+      liEl2.append(button);
+      ulPost.append(liEl2);
     })
-  });
-  rssDiv.append(feedsEl);
-  rssDiv.append(postsEl);
-};
+    ulFeed.append(liEl);
+  })
+  feedsContainer.append(ulFeed);
+  postsContainer.append(ulPost);
+  const form = document.querySelector('form');
+  form.reset();
+}

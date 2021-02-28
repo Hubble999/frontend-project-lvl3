@@ -78,7 +78,7 @@ export default async () => {
     if (path === 'submitForm.error') {
       renderError(current);
     }
-    if (current === 'finished') {
+    else if (current === 'finished') {
       renderPosts(state.data.feeds, state.data.posts);
     }
 
@@ -88,6 +88,7 @@ export default async () => {
     const formData = new FormData(e.target);
     const value = formData.get('name');
     const hasLink = state.data.links.some(({ link }) => link === value);
+    console.log(state)
     if (hasLink) {
       watchedState.submitForm.state = 'failed';
       watchedState.submitForm.error = 'submitProcess.errors.rssHasAlredy';
@@ -105,7 +106,6 @@ export default async () => {
         return;
       }
       const datas = parse(rss);
-      console.log(datas);
       const { channelInfo, infoItems } = datas;
       const id = _.uniqueId();
       watchedState.data.feeds.push({ id, ...channelInfo });
@@ -114,7 +114,8 @@ export default async () => {
         state.data.posts.push({ id, ...item });
       })
       watchedState.submitForm.state = 'finished';
-      form.reset();
+      watchedState.submitForm.error = '';
+      //form.reset();
       return;
     }
     watchedState.submitForm.state = 'failed';

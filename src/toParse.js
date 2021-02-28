@@ -3,9 +3,9 @@ export default (data) => {
   const xml = parser.parseFromString(data, 'text/xml');
   const channel = xml.querySelector('channel');
   const channelItems = [...channel.querySelectorAll('item')];
-  const channelTitle = channel.querySelector('title').textContent;
-  const channelDescription = channel.querySelector('description').textContent;
-  const channelLink = channel.querySelector('link').textContent;
+  const feedTitle = channel.querySelector('title').textContent;
+  const feedDescription = channel.querySelector('description').textContent;
+  const feedLink = channel.querySelector('link').textContent;
   const infoItems = [...channelItems].map((item) => {
     const title = item.querySelector('title').textContent;
     const link = item.querySelector('link').textContent
@@ -14,7 +14,7 @@ export default (data) => {
     return { title, link, description };
   });
   return {
-    channelInfo: { channelTitle, channelDescription, channelLink },
+    channelInfo: { feedTitle, feedDescription, feedLink },
     infoItems,
   };
 };
