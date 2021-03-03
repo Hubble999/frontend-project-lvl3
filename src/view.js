@@ -1,29 +1,29 @@
-import i18next from 'i18next';
-import en from './locales/en';
-
-async () => {
-  await i18next.init({
-    lng: 'en',
-    debug: true,
-    resources: {
-      en,
-    }
-  });
-}
+export const highlightForm = (value) => {
+  const input = document.querySelector('input');
+  if (value === 'failed') {
+    input.classList.add('is-invalid');
+  } else {
+    input.classList.remove('is-invalid');
+  }
+};
 
 export const renderError = (value) => {
   const feedbackEl = document.querySelector('.feedback');
   feedbackEl.textContent = '';
-  feedbackEl.textContent = i18next.t(value);
-  
-
+  feedbackEl.textContent = value.join('');
 };
 
-export const renderPosts = (feeds, posts) => {
-  const feedbackEl = document.querySelector('.feedback');
-  feedbackEl.textContent = '';
+export const renderContent = (feeds, posts) => {
   const feedsContainer = document.querySelector('.feeds');
   const postsContainer = document.querySelector('.posts');
+  feedsContainer.innerHTML = '';
+  postsContainer.innerHTML = '';
+  const h2Feed = document.createElement('h2');
+  h2Feed.textContent = 'Feeds';
+  feedsContainer.append(h2Feed);
+  const h2Post = document.createElement('h2');
+  h2Post.textContent = 'Posts';
+  postsContainer.append(h2Post);
   const ulFeed = document.createElement('ul');
   ulFeed.classList.add('list-group', 'mb-5')
   const ulPost = document.createElement('ul');
@@ -59,4 +59,4 @@ export const renderPosts = (feeds, posts) => {
   postsContainer.append(ulPost);
   const form = document.querySelector('form');
   form.reset();
-}
+};
