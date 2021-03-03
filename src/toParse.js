@@ -1,6 +1,9 @@
 export default (data) => {
   const parser = new DOMParser();
   const xml = parser.parseFromString(data, 'text/xml');
+  if (xml.querySelector('parsererror')) {
+    throw new Error('parsererror');
+  }
   const channel = xml.querySelector('channel');
   const channelItems = [...channel.querySelectorAll('item')];
   const feedTitle = channel.querySelector('title').textContent;
@@ -14,7 +17,7 @@ export default (data) => {
     return { title, link, description };
   });
   return {
-    channelInfo: { feedTitle, feedDescription, feedLink },
+    feedInfo: { feedTitle, feedDescription, feedLink },
     infoItems,
   };
 };
