@@ -49,6 +49,11 @@ export const renderContent = (feeds, posts) => {
       button.textContent = 'show';
       button.classList.add("btn", "btn-primary", "btn-sm");
       button.setAttribute('type', 'button');
+      button.setAttribute('data-toggle', 'modal');
+      button.setAttribute('data-target', '#myModal');
+      button.setAttribute('data-description', description);
+      button.setAttribute('data-title', title);
+      button.setAttribute('data-link', link);
       liEl2.append(aEl);
       liEl2.append(button);
       ulPost.append(liEl2);

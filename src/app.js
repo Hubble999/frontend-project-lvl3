@@ -1,10 +1,11 @@
 import i18next from 'i18next';
 import axios from 'axios';
-
 import parse from './toParse';
 import en from './locales/en';
 import { validate } from './utils';
 import watch from './watch';
+import $ from 'jquery';
+import 'bootstrap/js/dist/modal';
 
 const getRss = (url) => {
   return axios.get(`https://hexlet-allorigins.herokuapp.com/get?url=${encodeURIComponent(url)}`)
@@ -88,4 +89,15 @@ export default () => {
       watchedState.submitForm.validationErrors = errors;
     }
   })
+  $('#myModal').on('show.bs.modal', function append(evt) {
+    const button = $(evt.relatedTarget);
+    const description = button.data('description');
+    const title = button.data('title');
+    const link = button.data('link');
+    const modal = $(this);
+    modal.find('#description').text(description);
+    modal.find('#title').text(title);
+    console.log(link)
+    modal.find('#link').attr({'href': link});
+  });
 };

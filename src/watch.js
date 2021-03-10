@@ -13,7 +13,6 @@ export default (state) => onChange(state, (path, value) => {
     }
     case 'submitForm.errors': {
       renderError(value);
-      console.log(state)
       break;
     }
     case 'data.posts': {
