@@ -25,7 +25,7 @@ export const renderContent = (feeds, posts) => {
   h2Post.textContent = 'Posts';
   postsContainer.append(h2Post);
   const ulFeed = document.createElement('ul');
-  ulFeed.classList.add('list-group', 'mb-5')
+  ulFeed.classList.add('list-group', 'mb-5');
   const ulPost = document.createElement('ul');
   ulPost.classList.add('list-group');
   feeds.forEach(({ id, feedTitle, feedDescription }) => {
@@ -40,14 +40,19 @@ export const renderContent = (feeds, posts) => {
     const items = posts.filter((post) => post.id === id);
     items.forEach(({ title, link, description }) => {
       const liEl2 = document.createElement('li');
-      liEl2.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-start");
+      liEl2.classList.add(
+        'list-group-item',
+        'd-flex',
+        'justify-content-between',
+        'align-items-start',
+      );
       const aEl = document.createElement('a');
       aEl.href = link;
-      aEl.classList.add("font-weight-bold");
+      aEl.classList.add('font-weight-bold');
       aEl.textContent = title;
       const button = document.createElement('button');
       button.textContent = 'show';
-      button.classList.add("btn", "btn-primary", "btn-sm");
+      button.classList.add('btn', 'btn-primary', 'btn-sm');
       button.setAttribute('type', 'button');
       button.setAttribute('data-toggle', 'modal');
       button.setAttribute('data-target', '#myModal');
@@ -57,9 +62,9 @@ export const renderContent = (feeds, posts) => {
       liEl2.append(aEl);
       liEl2.append(button);
       ulPost.append(liEl2);
-    })
+    });
     ulFeed.append(liEl);
-  })
+  });
   feedsContainer.append(ulFeed);
   postsContainer.append(ulPost);
   const form = document.querySelector('form');

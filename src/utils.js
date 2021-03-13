@@ -2,20 +2,20 @@ import i18next from 'i18next';
 import * as yup from 'yup';
 
 const validate = (url, links) => {
-
   yup.setLocale({
     mixed: {
-      notOneOf: i18next.t('submitProcess.errors.rssHasAlredy')
+      notOneOf: i18next.t('submitProcess.errors.rssHasAlredy'),
     },
     string: {
-      url: i18next.t('submitProcess.errors.additionURL')
-    }
+      url: i18next.t('submitProcess.errors.additionURL'),
+    },
   });
 
   const schema = yup.object().shape({
-    website: yup.string()
+    website: yup
+      .string()
       .url()
-      .notOneOf(links.map(({ link }) => link))
+      .notOneOf(links.map(({ link }) => link)),
   });
 
   try {
@@ -26,4 +26,4 @@ const validate = (url, links) => {
   }
 };
 
-export { validate }; 
+export { validate };

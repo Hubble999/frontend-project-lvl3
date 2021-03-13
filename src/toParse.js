@@ -11,7 +11,7 @@ export default (data) => {
   const feedLink = channel.querySelector('link').textContent;
   const infoItems = [...channelItems].map((item) => {
     const title = item.querySelector('title').textContent;
-    const link = item.querySelector('link').textContent
+    const link = item.querySelector('link').textContent;
     const description = item.querySelector('description').textContent;
     description.trim();
     return { title, link, description };

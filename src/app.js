@@ -7,27 +7,34 @@ import watch from './watch';
 import $ from 'jquery';
 import 'bootstrap/js/dist/modal';
 
+const proxy = 'https://hexlet-allorigins.herokuapp.com';
+
 const getRss = (url) => {
-  return axios.get(`https://hexlet-allorigins.herokuapp.com/get?url=${encodeURIComponent(url)}`)
+  return axios
+    .get(`${proxy}/get?url=${encodeURIComponent(url)}`)
     .then((res) => res.data)
-    .catch((e) => console.log(e))
+    .catch((e) => console.log(e));
 };
 
 const updatePosts = (state, links) => {
   links.reverse().forEach(({ id, link }) => {
-    getRss(link)
-      .then((data) => {
-        const { infoItems } = parse(data.contents);
-        const posts = state.data.posts;
-        const updatePosts = infoItems.map(({ title, description, link }) => ({ id, title, description, link }));
-        const newPosts = _.differenceWith(updatePosts, posts, _.isEqual);
-        if (newPosts.length > 0) {
-          state.data.posts = [...newPosts, state.data.posts];
-        }
-      });
-  })
+    getRss(link).then((data) => {
+      const { infoItems } = parse(data.contents);
+      const posts = state.data.posts;
+      const updatePosts = infoItems.map(({ title, description, link }) => ({
+        id,
+        title,
+        description,
+        link,
+      }));
+      const newPosts = _.differenceWith(updatePosts, posts, _.isEqual);
+      if (newPosts.length > 0) {
+        state.data.posts = [...newPosts, state.data.posts];
+      }
+    });
+  });
   setTimeout(() => updatePosts(state, links), 5000);
-}
+};
 
 export default () => {
   i18next.init({
@@ -35,7 +42,7 @@ export default () => {
     debug: true,
     resources: {
       en,
-    }
+    },
   });
 
   const state = {
@@ -71,7 +78,12 @@ export default () => {
           const { feedInfo, infoItems } = data;
           const id = _.uniqueId();
           watchedState.data.feeds = [{ id, ...feedInfo }, ...feeds];
-          const newPosts = infoItems.map(({ title, link, description }) => ({ id, title, link, description }));
+          const newPosts = infoItems.map(({ title, link, description }) => ({
+            id,
+            title,
+            link,
+            description,
+          }));
           watchedState.data.posts = [...newPosts, ...posts];
           watchedState.data.links = [{ id, link: url }, ...links];
           watchedState.submitForm.state = 'finished';
@@ -81,14 +93,18 @@ export default () => {
         })
         .catch(() => {
           watchedState.submitForm.state = 'failed';
-          watchedState.submitForm.errors = [(i18next.t('submitProcess.errors.rssNotValid'))];
+          watchedState.submitForm.errors = [
+            i18next.t('submitProcess.errors.rssNotValid'),
+          ];
         })
-        .then(() => setTimeout(() => updatePosts(watchedState, state.data.links), 5000));
+        .then(() =>
+          setTimeout(() => updatePosts(watchedState, state.data.links), 5000),
+        );
     } else {
       watchedState.submitForm.state = 'failed';
       watchedState.submitForm.validationErrors = errors;
     }
-  })
+  });
   $('#myModal').on('show.bs.modal', function append(evt) {
     const button = $(evt.relatedTarget);
     const description = button.data('description');
@@ -97,7 +113,7 @@ export default () => {
     const modal = $(this);
     modal.find('#description').text(description);
     modal.find('#title').text(title);
-    console.log(link)
-    modal.find('#link').attr({'href': link});
+    console.log(link);
+    modal.find('#link').attr({ href: link });
   });
 };
