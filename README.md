@@ -1,3 +1,3 @@
 # RSS feed aggregator with post autoupdate feature
 
-## Demo (deployed with Vercel):
+## Demo (deployed with Vercel): https://rss-feeds.vercel.app/
