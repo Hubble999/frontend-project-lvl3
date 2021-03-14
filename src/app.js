@@ -6,13 +6,16 @@ import { validate } from './utils';
 import watch from './watch';
 import $ from 'jquery';
 import 'bootstrap/js/dist/modal';
+import _ from 'lodash';
 
 const proxy = 'https://hexlet-allorigins.herokuapp.com';
 
 const getRss = (url) => {
   return axios
     .get(`${proxy}/get?url=${encodeURIComponent(url)}`)
-    .then((res) => res.data)
+    .then((res) => {
+      return res.data;
+    })
     .catch((e) => console.log(e));
 };
 
@@ -110,6 +113,7 @@ export default () => {
     const description = button.data('description');
     const title = button.data('title');
     const link = button.data('link');
+    console.log(description, link, title)
     const modal = $(this);
     modal.find('#description').text(description);
     modal.find('#title').text(title);

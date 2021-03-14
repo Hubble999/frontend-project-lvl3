@@ -2,6 +2,7 @@ import i18next from 'i18next';
 import * as yup from 'yup';
 
 const validate = (url, links) => {
+  console.log(url, links);
   yup.setLocale({
     mixed: {
       notOneOf: i18next.t('submitProcess.errors.rssHasAlredy'),
