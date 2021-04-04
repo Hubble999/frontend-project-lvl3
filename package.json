@@ -1,5 +1,5 @@
 {
-  "name": "rss-feeds",
+  "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/karen9999/rss-feeds/workflows/hexlet-check/badge.svg)](https://github.com/karen9999/rss-feeds/actions)",
   "private": true,
