@@ -17,6 +17,7 @@
   "bugs": {
     "url": "https://github.com/karen9999/frontend-project-lvl3/issues"
   },
+  "main": "src/index.js",
   "homepage": "https://github.com/karen9999/frontend-project-lvl3#readme",
   "devDependencies": {
     "@babel/cli": "^7.12.10",
