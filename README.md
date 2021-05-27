@@ -5,3 +5,8 @@
 
 ## Example:
 ![Example](/upload/example.gif)
+
+## Installation
+
+```bash
+make install
