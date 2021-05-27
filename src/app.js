@@ -1,12 +1,19 @@
 import i18next from 'i18next';
 import axios from 'axios';
 import parse from './toParse';
-import en from './locales/en';
+import locales from './locales/index';
 import { validate } from './utils';
 import watch from './watch';
 import $ from 'jquery';
 import 'bootstrap/js/dist/modal';
 import _ from 'lodash';
+
+export default () => {
+  i18next.init({
+    lng: 'ru',
+    debug: true,
+    resources: locales,
+  });
 
 const proxy = 'https://hexlet-allorigins.herokuapp.com';
 
@@ -39,15 +46,6 @@ const updatePosts = (state, links) => {
   setTimeout(() => updatePosts(state, links), 5000);
 };
 
-export default () => {
-  i18next.init({
-    lng: 'en',
-    debug: true,
-    resources: {
-      en,
-    },
-  });
-
   const state = {
     submitForm: {
       state: 'filling',
@@ -61,17 +59,24 @@ export default () => {
       links: [],
     },
   };
+
+  const addBtn = document.querySelector('.addBtn');
+  addBtn.textContent = i18next.t('add');
+  const closeModalBtn = document.querySelector('.closeModalBtn');
+  closeModalBtn.textContent = i18next.t('close');
+  const goModalBtn = document.querySelector('.goModalBtn');
+  goModalBtn.textContent = i18next.t('go');
+  
   const watchedState = watch(state);
   const form = document.querySelector('.rss-form');
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    watchedState.submitForm.validationErrors = [];
     watchedState.submitForm.state = 'processing';
     const formData = new FormData(e.target);
     const url = formData.get('value');
-    const errors = validate(url, state.data.links);
-    if (errors.length === 0) {
+    const URLerrors = validate(url, state.data.links);
+    if (URLerrors.length === 0) {
       getRss(url)
         .then((res) => {
           return parse(res.contents);
@@ -101,11 +106,11 @@ export default () => {
           ];
         })
         .then(() =>
-          setTimeout(() => updatePosts(watchedState, state.data.links), 5000),
+          updatePosts(watchedState, state.data.links),
         );
     } else {
       watchedState.submitForm.state = 'failed';
-      watchedState.submitForm.validationErrors = errors;
+      watchedState.submitForm.validationErrors = URLerrors;
     }
   });
   $('#myModal').on('show.bs.modal', function append(evt) {

@@ -1,3 +1,5 @@
+import i18next from 'i18next';
+
 export const highlightForm = (value) => {
   const input = document.querySelector('input');
   if (value === 'failed') {
@@ -18,16 +20,16 @@ export const renderContent = (feeds, posts) => {
   const postsContainer = document.querySelector('.posts');
   feedsContainer.innerHTML = '';
   postsContainer.innerHTML = '';
-  const h2Feed = document.createElement('h2');
-  h2Feed.textContent = 'Feeds';
-  feedsContainer.append(h2Feed);
-  const h2Post = document.createElement('h2');
-  h2Post.textContent = 'Posts';
-  postsContainer.append(h2Post);
-  const ulFeed = document.createElement('ul');
-  ulFeed.classList.add('list-group', 'mb-5');
-  const ulPost = document.createElement('ul');
-  ulPost.classList.add('list-group');
+  const feedTitle = document.createElement('h2');
+  feedTitle.textContent = i18next.t('feeds');
+  feedsContainer.append(feedTitle);
+  const postTitle = document.createElement('h2');
+  postTitle.textContent = i18next.t('posts');
+  postsContainer.append(postTitle);
+  const feedContainer = document.createElement('ul');
+  feedContainer.classList.add('list-group', 'mb-5');
+  const postContainer = document.createElement('ul');
+  postContainer.classList.add('list-group');
   feeds.forEach(({ id, feedTitle, feedDescription }) => {
     const liEl = document.createElement('li');
     liEl.classList.add('list-group-item');
@@ -51,7 +53,7 @@ export const renderContent = (feeds, posts) => {
       aEl.classList.add('font-weight-bold');
       aEl.textContent = title;
       const button = document.createElement('button');
-      button.textContent = 'show';
+      button.textContent = i18next.t('viewing');
       button.classList.add('btn', 'btn-primary', 'btn-sm');
       button.setAttribute('type', 'button');
       button.setAttribute('data-toggle', 'modal');
@@ -61,12 +63,12 @@ export const renderContent = (feeds, posts) => {
       button.setAttribute('data-link', link);
       liEl2.append(aEl);
       liEl2.append(button);
-      ulPost.append(liEl2);
+      postContainer.append(liEl2);
     });
-    ulFeed.append(liEl);
+    feedContainer.append(liEl);
   });
-  feedsContainer.append(ulFeed);
-  postsContainer.append(ulPost);
+  feedsContainer.append(feedContainer);
+  postsContainer.append(postContainer);
   const form = document.querySelector('form');
   form.reset();
 };

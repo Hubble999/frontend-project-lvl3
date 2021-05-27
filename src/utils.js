@@ -2,7 +2,6 @@ import i18next from 'i18next';
 import * as yup from 'yup';
 
 const validate = (url, links) => {
-  console.log(url, links);
   yup.setLocale({
     mixed: {
       notOneOf: i18next.t('submitProcess.errors.rssHasAlredy'),
@@ -23,7 +22,7 @@ const validate = (url, links) => {
     schema.validateSync({ website: url }, { abortEarly: false });
     return [];
   } catch (e) {
-    return [e.errors];
+    return e.errors;
   }
 };
 
