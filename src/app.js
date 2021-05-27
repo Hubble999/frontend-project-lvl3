@@ -113,11 +113,9 @@ export default () => {
     const description = button.data('description');
     const title = button.data('title');
     const link = button.data('link');
-    console.log(description, link, title)
     const modal = $(this);
     modal.find('#description').text(description);
     modal.find('#title').text(title);
-    console.log(link);
     modal.find('#link').attr({ href: link });
   });
 };
