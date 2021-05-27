@@ -2,14 +2,21 @@ import i18next from 'i18next';
 
 export const renderForm = (value) => {
   const input = document.querySelector('input');
-  const addBtn = document.querySelector('.addBtn');
-  addBtn.setAttribute('disabled', true);
-  if (value === 'failed') {
-    input.classList.add('is-invalid');
-  } else {
-    input.classList.remove('is-invalid');
+  const formBtn = document.querySelector('.addBtn');
+  switch (value) {
+    case 'failed': {
+      input.classList.add('is-invalid');
+      formBtn.removeAttribute('disabled');
+    }
+    case 'processing': {
+      input.classList.remove('is-invalid');
+      formBtn.setAttribute('disabled', true);
+    }
+    case 'finished': {
+      input.classList.remove('is-invalid');
+      formBtn.removeAttribute('disabled');
+    }
   }
-  addBtn.removeAttribute('disabled');
 };
 
 export const renderError = (value) => {
