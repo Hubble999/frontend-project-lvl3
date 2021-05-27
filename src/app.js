@@ -10,7 +10,7 @@ import _ from 'lodash';
 
 export default () => {
   i18next.init({
-    lng: 'ru',
+    lng: 'en',
     debug: true,
     resources: locales,
   });
