@@ -72,6 +72,7 @@ const updatePosts = (state, links) => {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    watchedState.submitForm.validationErrors = [];
     watchedState.submitForm.state = 'processing';
     const formData = new FormData(e.target);
     const url = formData.get('value');
@@ -99,7 +100,8 @@ const updatePosts = (state, links) => {
         .then(() => {
           watchedState.submitForm.state = 'filling';
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log(err);
           watchedState.submitForm.state = 'failed';
           watchedState.submitForm.errors = [
             i18next.t('submitProcess.errors.rssNotValid'),

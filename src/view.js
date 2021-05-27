@@ -1,12 +1,15 @@
 import i18next from 'i18next';
 
-export const highlightForm = (value) => {
+export const renderForm = (value) => {
   const input = document.querySelector('input');
+  const addBtn = document.querySelector('.addBtn');
+  addBtn.setAttribute('disabled', true);
   if (value === 'failed') {
     input.classList.add('is-invalid');
   } else {
     input.classList.remove('is-invalid');
   }
+  addBtn.removeAttribute('disabled');
 };
 
 export const renderError = (value) => {

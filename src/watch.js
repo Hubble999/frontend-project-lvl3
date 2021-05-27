@@ -1,11 +1,11 @@
 import onChange from 'on-change';
-import { renderError, renderContent, highlightForm } from './view';
+import { renderError, renderContent, renderForm } from './view';
 
 export default (state) =>
   onChange(state, (path, value) => {
     switch (path) {
       case 'submitForm.state': {
-        highlightForm(value);
+        renderForm(value);
         break;
       }
       case 'submitForm.validationErrors': {
