@@ -7,14 +7,17 @@ export const renderForm = (value) => {
     case 'failed': {
       input.classList.add('is-invalid');
       formBtn.removeAttribute('disabled');
+      break;
     }
     case 'processing': {
       input.classList.remove('is-invalid');
       formBtn.setAttribute('disabled', true);
+      break;
     }
     case 'finished': {
       input.classList.remove('is-invalid');
       formBtn.removeAttribute('disabled');
+      break;
     }
   }
 };

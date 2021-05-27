@@ -1,12 +1,12 @@
 import i18next from 'i18next';
 import axios from 'axios';
+import $ from 'jquery';
+import _ from 'lodash';
 import parse from './toParse';
 import locales from './locales/index';
 import { validate } from './utils';
 import watch from './watch';
-import $ from 'jquery';
 import 'bootstrap/js/dist/modal';
-import _ from 'lodash';
 
 export default () => {
   i18next.init({
@@ -15,36 +15,32 @@ export default () => {
     resources: locales,
   });
 
-const proxy = 'https://hexlet-allorigins.herokuapp.com';
+  const proxy = 'https://hexlet-allorigins.herokuapp.com';
 
-const getRss = (url) => {
-  return axios
+  const getRss = (url) => axios
     .get(`${proxy}/get?url=${encodeURIComponent(url)}`)
-    .then((res) => {
-      return res.data;
-    })
+    .then((res) => res.data)
     .catch((e) => console.log(e));
-};
 
-const updatePosts = (state, links) => {
-  links.reverse().forEach(({ id, link }) => {
-    getRss(link).then((data) => {
-      const { infoItems } = parse(data.contents);
-      const posts = state.data.posts;
-      const updatePosts = infoItems.map(({ title, description, link }) => ({
-        id,
-        title,
-        description,
-        link,
-      }));
-      const newPosts = _.differenceWith(updatePosts, posts, _.isEqual);
-      if (newPosts.length > 0) {
-        state.data.posts = [...newPosts, state.data.posts];
-      }
+  const updatePosts = (state, links) => {
+    links.reverse().forEach(({ id, link }) => {
+      getRss(link).then((data) => {
+        const { infoItems } = parse(data.contents);
+        const { posts } = state.data;
+        const updatedPosts = infoItems.map(({ title, description, link }) => ({
+          id,
+          title,
+          description,
+          link,
+        }));
+        const newPosts = _.differenceWith(updatedPosts, posts, _.isEqual);
+        if (newPosts.length > 0) {
+          state.data.posts = [...newPosts, state.data.posts];
+        }
+      });
     });
-  });
-  setTimeout(() => updatePosts(state, links), 5000);
-};
+    setTimeout(() => updatePosts(state, links), 5000);
+  };
 
   const state = {
     submitForm: {
@@ -79,9 +75,7 @@ const updatePosts = (state, links) => {
     const URLerrors = validate(url, state.data.links);
     if (URLerrors.length === 0) {
       getRss(url)
-        .then((res) => {
-          return parse(res.contents);
-        })
+        .then((res) => parse(res.contents))
         .then((data) => {
           const { feeds, posts, links } = state.data;
           const { feedInfo, infoItems } = data;
@@ -107,9 +101,7 @@ const updatePosts = (state, links) => {
             i18next.t('submitProcess.errors.rssNotValid'),
           ];
         })
-        .then(() =>
-          updatePosts(watchedState, state.data.links),
-        );
+        .then(() => updatePosts(watchedState, state.data.links));
     } else {
       watchedState.submitForm.state = 'failed';
       watchedState.submitForm.validationErrors = URLerrors;
