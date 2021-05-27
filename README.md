@@ -9,4 +9,23 @@
 ## Installation
 
 ```bash
-make install
+$ make install
+```
+
+## Run developer server
+
+```bash
+$ make develop
+```
+
+## Run linter
+
+```bash
+$ make lint
+```
+
+## Buid project
+
+```bash
+$ make build
+```
