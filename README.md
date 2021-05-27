@@ -24,7 +24,7 @@ $ make develop
 $ make lint
 ```
 
-## Buid project
+## Build project
 
 ```bash
 $ make build
