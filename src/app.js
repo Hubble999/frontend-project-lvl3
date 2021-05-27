@@ -60,12 +60,12 @@ const updatePosts = (state, links) => {
     },
   };
 
-  const addBtn = document.querySelector('.addBtn');
+ /*  const addBtn = document.querySelector('.addBtn');
   addBtn.innerText = i18next.t('add');
   const closeModalBtn = document.querySelector('.closeModalBtn');
   closeModalBtn.innerText = i18next.t('close');
   const goModalBtn = document.querySelector('.goModalBtn');
-  goModalBtn.innerText = i18next.t('go');
+  goModalBtn.innerText = i18next.t('go'); */
 
   const watchedState = watch(state);
   const form = document.querySelector('.rss-form');
